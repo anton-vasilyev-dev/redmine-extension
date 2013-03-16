@@ -43,7 +43,7 @@ class IssueController extends AbstractActionController
 
         $sql    = $this->_getIssuesMapper()->getTable()->getSql();
         $select = $sql->select()
-            ->columns(array('id', 'subject', 'done_ratio', 'due_date', 'priority_id', 'start_date', 'fixed_version_id', 'time_estimate' => 'estimated_hours'))
+            ->columns(array('id', 'root_id', 'subject', 'done_ratio', 'due_date', 'priority_id', 'start_date', 'fixed_version_id', 'time_estimate' => 'estimated_hours'))
             ->join(array('ep' => 'enumerations'),
                    'ep.id = issues.priority_id',
                    array('priority_position' => 'position'))

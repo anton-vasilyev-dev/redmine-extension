@@ -16,6 +16,8 @@ class IssueModel extends \Application\Model\EntityModel
 
     protected $_timeEstimate;
 
+    protected $_rootId;
+
 
     protected $_trackerId;
 
@@ -239,5 +241,16 @@ class IssueModel extends \Application\Model\EntityModel
     public function getProjectVcsAlias()
     {
         return $this->_projectVcsAlias;
+    }
+
+    public function setRootId($rootId)
+    {
+        $this->_rootId = $rootId;
+        return $this;
+    }
+
+    public function getRootId()
+    {
+        return $this->_rootId;
     }
 }
