@@ -1,26 +1,42 @@
-<div class="hero-unit">
-    <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
-    <p><a class="btn btn-success btn-large" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('Fork Zend Framework 2 on GitHub') ?> &raquo;</a></p>
-</div>
-
-<div class="row">
-
-    <div class="span4">
-        <h2><?php echo $this->translate('Follow Development') ?></h2>
-        <p><?php echo sprintf($this->translate('Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!'), '<a href="http://framework.zend.com/wiki/display/ZFDEV2/Home">', '</a>', '<a href="http://framework.zend.com/zf2/blog">', '</a>', '<a href="https://github.com/zendframework/zf2/issues">', '</a>') ?></p>
-        <p><a class="btn btn-success" href="http://framework.zend.com/zf2" target="_blank"><?php echo $this->translate('ZF2 Development Portal') ?> &raquo;</a></p>
-    </div>
-
-    <div class="span4">
-        <h2><?php echo $this->translate('Discover Modules') ?></h2>
-        <p><?php echo sprintf($this->translate('The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2.'), '<a href="https://github.com/zendframework/modules.zendframework.com">', '</a>') ?></p>
-        <p><a class="btn btn-success" href="http://modules.zendframework.com/" target="_blank"><?php echo $this->translate('Explore ZF2 Modules') ?> &raquo;</a></p>
-   </div>
-
-   <div class="span4">
-       <h2><?php echo $this->translate('Help &amp; Support') ?></h2>
-       <p><?php echo sprintf($this->translate('If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We\'d love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s.'), '<a href="irc://irc.freenode.net/zftalk">', '</a>', '<a href="http://framework.zend.com/wiki/display/ZFDEV/Mailing+Lists">', '</a>') ?></p>
-       <p><a class="btn btn-success" href="http://webchat.freenode.net?channels=zftalk" target="_blank"><?php echo $this->translate('Ping us on IRC') ?> &raquo;</a></p>
-   </div>
-</div>
+<h3 style="width: 300px; float: left;"><img style="width: 20px;" src="#" alt="Мои задачи" title="Мои задачи">Мои задачи (123)</h3>
+<h3 style="width: 350px; float: left;"><img style="width: 20px;" src="#" alt="Мое время" title="Мое время">Мое время (00:00:00)</h3>
+<h3 style="float: right;"><img src="/img/office.png" alt="Офис" title="Офис"> 00:00:00 <img style="width: 20px;" src="#" alt="Старт" title="Старт"><img style="width: 20px;" src="#" alt="Стоп" title="Стоп"></h3>
+<table cellspacing="0" cellpadding="0" class="table table-bordered">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Трекер</th>
+      <th style="width: 162px;">Время</th>
+      <th>Тема</th>
+      <th>Версия</th>
+      <th>Даты</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if (count($paginator)): ?>
+    <?php foreach ($paginator as $item): ?>
+     <?php $issue = new \Application\Model\IssueModel(); $issue->exchangeArray($item); ?>
+    <tr class="priority-<?php echo $issue->getPriorityId() ?>">
+        <td><a target="_blank" href="http://redmine.f-technology.ru/issues/<?php echo $issue->getId() ?>"><?php echo $issue->getId() ?></a></td>
+        <td><?php echo $issue->getTracker() ?></td>
+        <td><div style="width: 162px;">000:00:00 / <a class="issue-estimation" href="/issues/estimate/"><b>100:00:00</b></a>
+            <a issieId="<?php echo $issue->getId() ?>" href="/issues/start/<?php echo $issue->getId() ?>/"><img class="issue-time-show" src="/img/play.png" alt="В работу" title="В работу"></a><?php
+            ?><a issieId="<?php echo $issue->getId() ?>" href="/issues/pause/<?php echo $issue->getId() ?>"><img class="issue-time-hide" src="/img/pause.png" alt="Отложить" title="Отложить"></a><?php
+            ?><a issieId="<?php echo $issue->getId() ?>" href="/issues/stop/<?php echo $issue->getId() ?>"><img class="issue-time-show" src="/img/stop.png" alt="Выполнено" title="Выполнено"></a></div>
+            <table title="<?php echo $issue->getDoneRatio() ?>%" class="progress" style="width: 162px; margin-top: 4px"><tbody><tr><td class="closed" style="width: <?php echo $issue->getDoneRatio() ?>%;"></td><td class="todo" style="width: <?php echo 100 - $issue->getDoneRatio() ?>%;"></td></tr></tbody></table><p class="pourcent"></p>
+        </td>
+        <td><a target="_blank" href="http://redmine.f-technology.ru/issues/<?php echo $issue->getId() ?>">Фабрикант » ЭТП » ® Фабрикант » Разработка</a><br/><b><a target="_blank" href="http://redmine.f-technology.ru/issues/<?php echo $issue->getId() ?>"><?php echo $issue->getSubject() ?></a></b></td>
+        <td><a href="#">r-187</a><br/><nobr><b><a href="http://analytic-56123.fabrikant.test">analytic-56123</a></b></nobr></td>
+        <td>
+            <div style="float: left; margin-left: 6px; padding-right: 5px;">с</div> <?php echo $issue->getDueDate() != '' ? date('d.m.Y', strtotime($issue->getDueDate())) : '' ?></br>
+            до <b><?php echo $issue->getDueDate() != '' ? date('d.m.Y', strtotime($issue->getDueDate())) : '' ?></b>
+        </td>
+    </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+    <td colspan="<?php echo count($headers) + 1 ?>"><?php echo $this->translate('Задачи отсутствуют') ?></td>
+    <?php endif; ?>
+</table>
+<?php echo $this->paginationControl($paginator, 'sliding', 'pagination') ?>
+    </tbody>
+</table>

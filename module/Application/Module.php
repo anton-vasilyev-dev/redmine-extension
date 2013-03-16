@@ -37,4 +37,17 @@ class Module
             ),
         );
     }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                '\Application\Model\IssuesTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new \Zend\Db\TableGateway\TableGateway('issues', $dbAdapter);
+                    return $table;
+                },
+            ),
+        );
+    }
 }
