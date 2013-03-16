@@ -47,6 +47,11 @@ class Module
                     $table     = new \Zend\Db\TableGateway\TableGateway('issues', $dbAdapter);
                     return $table;
                 },
+                '\Application\Model\SpentTimeTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new \Zend\Db\TableGateway\TableGateway('time_entries', $dbAdapter);
+                    return $table;
+                },
             ),
         );
     }

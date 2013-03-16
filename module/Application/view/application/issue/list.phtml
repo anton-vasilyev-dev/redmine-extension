@@ -1,0 +1,51 @@
+<h3 style="width: 270px; float: left;">
+    <img src="/img/task.png" style="margin-top: -4px;" src="#" alt="Мои задачи" title="Мои задачи"> Мои задачи (<?php echo $paginator->getTotalItemCount() ?>)
+</h3>
+<h3 style="width: 350px; float: left;">
+    <img src="/img/clock.png" style="margin-top: -4px;" alt="Мое время" title="Мое время"> Мое время (<?php echo $this->timeFormat($todaySpentTime, 2) ?>)
+</h3>
+<h3 style="float: right;">
+    <img src="/img/office.png" style="margin-top: -1px;" alt="Время в офисе" title="Время в офисе"> <span class="office-time-stopped">00:00:00</span>
+    <img style="margin-top: -4px;" src="/img/office_start.png" alt="Старт" title="Старт"><img style="margin-top: -4px; display: none;" src="/img/office_stop.png" alt="Стоп" title="Стоп">
+</h3>
+<table cellspacing="0" cellpadding="0" class="table table-bordered">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Трекер</th>
+      <th style="width: 162px;">Время</th>
+      <th>Тема</th>
+      <th>Версия</th>
+      <th>Даты</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if (count($paginator)): ?>
+    <?php foreach ($issues as $item): ?>
+     <?php $issue = new \Application\Model\IssueModel(); $issue->exchangeArray($item); ?>
+    <tr class="priority-<?php echo $issue->getPriorityId() ?>">
+        <td><a target="_blank" href="http://redmine.f-technology.ru/issues/<?php echo $issue->getId() ?>"><?php echo $issue->getId() ?></a></td>
+        <td><?php echo $issue->getTracker() ?></td>
+        <td><div style="width: 162px;"><a target="_blank" title="Затраченное время" href="http://redmine.f-technology.ru/projects/fabr-etp-fabr-dev-credit/issues/<?php echo $issue->getId() ?>/time_entries"><?php echo $this->timeFormat($issuesSpentTime[$issue->getId()]['hours']) ?></a> / <a title="Оцененное время" class="issue-interactive-link" href="/issues/estimate/"><b><?php echo $this->timeFormat($issue->getTimeEstimate()) ?></b></a>
+            <a href="/issues/start/<?php echo $issue->getId() ?>/"><img class="issue-time-show" src="/img/play.png" alt="В работу" title="В работу"></a><?php
+            ?><a href="/issues/pause/<?php echo $issue->getId() ?>"><img class="issue-time-hide" src="/img/pause.png" alt="Отложить" title="Отложить"></a><?php
+            ?><a href="/issues/stop/<?php echo $issue->getId() ?>"><img class="issue-time-show" src="/img/stop.png" alt="Выполнено" title="Выполнено"></a></div>
+            <table title="<?php echo $issue->getDoneRatio() ?>%" class="progress" style="width: 162px; margin-top: 4px"><tbody><tr><td class="closed" style="width: <?php echo $issue->getDoneRatio() ?>%;"></td><td class="todo" style="width: <?php echo 100 - $issue->getDoneRatio() ?>%;"></td></tr></tbody></table><p class="pourcent"></p>
+        </td>
+        <td><a target="_blank" href="http://redmine.f-technology.ru/projects/<?php echo $issue->getProjectIdentifier() ?>"><?php echo $issue->getProjectTree() ?></a><br/><b><a target="_blank" href="http://redmine.f-technology.ru/issues/<?php echo $issue->getId() ?>"><?php echo $issue->getSubject() ?></a></b></td>
+        <td><a target="_blank" href="http://redmine.f-technology.ru/versions/<?php echo $issue->getFixedVersionId() ?>"><?php echo $issue->getVersion() ?></a><br/><nobr><b><a target="_blank" href="http://<?php echo $issue->getProjectVcsAlias() ?>-56123.fabrikant.test"><?php echo $issue->getProjectVcsAlias() ?>-56123</a></b></nobr></td>
+        <td>
+            <div style="width: 100px;">
+                <img class="issue-date-start" style="margin-left: 2px; margin-right: 2px;" src="/img/date_start.png" alt="Дата начала" title="Дата начала"> <a title="Дата начала" class="issue-interactive-link" href="/issues/set-date-start/"><?php echo $issue->getStartDate() != '' ? '' . date('d.m.Y', strtotime($issue->getStartDate())) : 'Не задана' ?></a></br>
+                <img class="issue-date-end"  style="margin-right: 4px;" src="/img/date_end.png" alt="Дата выполнения" title="Дата выполнения"> <a title="Дата выполнения" class="issue-interactive-link" href="/issues/set-date-end/"><b><?php echo $issue->getDueDate() != '' ? '' . date('d.m.Y', strtotime($issue->getDueDate())) : 'Не задана' ?></b></a>
+            </div>
+        </td>
+    </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+    <td colspan="6"><?php echo $this->translate('Задачи отсутствуют') ?></td>
+    <?php endif; ?>
+</table>
+<?php echo $this->paginationControl($paginator, 'sliding', 'pagination') ?>
+    </tbody>
+</table>

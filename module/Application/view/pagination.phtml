@@ -21,6 +21,9 @@
     <a href="<?php echo $this->url(null, array('page' => $this->next)); ?>">
         Следующая »</a>
     <?php endif; ?>
-    (1-25/<?php echo $this->totalItemCount ?>) |  На страницу: 25, <a href="#">50</a>, <a href="#">100</a>
+    (1-<?php echo $this->itemCountPerPage ?>/<?php echo $this->totalItemCount ?>) |
+    На страницу: <?php if ($this->itemCountPerPage == 25) { ?>25<?php } else { ?><a href="<?php echo $this->url(null, array('per-page' => 25)); ?>">25</a><?php } ?>,
+    <?php if ($this->itemCountPerPage == 50) { ?>50<?php } else { ?><a href="<?php echo $this->url(null, array('per-page' => 50)); ?>">50</a><?php } ?>,
+    <?php if ($this->itemCountPerPage == 100) { ?>100<?php } else { ?><a href="<?php echo $this->url(null, array('per-page' => 100)); ?>">100</a><?php } ?>
 </div>
 <?php endif; ?>

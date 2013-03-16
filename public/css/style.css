@@ -1,6 +1,6 @@
 body {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 20px;
 }
 
 .zf-green {
@@ -102,13 +102,21 @@ table {
     padding: 4px !important;
 }
 
-.issue-estimation {
+a.issue-interactive-link {
     color: black;
     border-bottom: 1px dotted;
 }
 
-.issue-estimation:hover {
+a.issue-interactive-link:hover {
     text-decoration: none;
     color: gray;
     border-bottom: 1px gray dotted;
+}
+
+.office-time-stopped {
+    color: red;
+}
+
+.office-time-started {
+    color: green;
 }
